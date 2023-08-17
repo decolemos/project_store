@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:project_store/screens/home/components/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
+
+  
+
   const LoginScreen({super.key});
 
   @override
@@ -15,7 +18,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: 200,
                 child: Image.network(
                   "https://i.ibb.co/FD4DV6k/psn-logo.png"
@@ -36,7 +39,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const LoginForm(),
+              const LoginForm(
+                isLoginScreen: true,
+              ),
               Column(
                 children: [
                   const SizedBox(
@@ -47,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                     height: 30,
                     child: TextButton(
                       onPressed: () {
-                        
+                        Navigator.pushNamed(context, "register_screen");
                       },
                       child: const Row(
                         children: [
@@ -58,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                           Text(" CLIQUE AQUI!", 
                             style: TextStyle(color: Color(0xff0097D7),
-
+              
                             ),
                           ),
                         ],
