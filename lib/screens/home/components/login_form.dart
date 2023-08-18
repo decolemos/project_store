@@ -23,8 +23,10 @@ class _LoginFormState extends State<LoginForm> {
   void _submit() {
     _formKey.currentState!.validate();
     _formKey.currentState!.save();
+    print(formData["name"]);
     print(formData["user"]);
     print(formData["password"]);
+    print(formData["checkPassword"]);
   }
 
   @override
@@ -34,8 +36,8 @@ class _LoginFormState extends State<LoginForm> {
         margin: const EdgeInsets.only(top: 5, left: 15, right: 15),
         width: double.infinity,
         height: widget.isLoginScreen == true
-        ? 245
-        : 510,
+        ? 280
+        : 550,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           color: Colors.white
@@ -139,7 +141,7 @@ class _LoginFormState extends State<LoginForm> {
                       return null;
                     },
                     onSaved: (newValue) {
-                      formData["password"] = newValue!;
+                      formData["checkPassword"] = newValue!;
                     },
                   ),
                 ],
