@@ -36,9 +36,21 @@ class ProviderController extends ChangeNotifier {
         })
       );
 
+    log("chegou aqui");
+
     final jsonResponse = jsonDecode(response.body);
+    final statusCodeResponse = jsonDecode(response.statusCode.toString());
+
+    if(jsonResponse == null || statusCodeResponse != 200) {
+      log("Usuário ou senha incorreto");
+    } else {
+      log("Logando");
+    }
 
     final token = jsonResponse["idToken"];
+
+    log(token);      
+    log(statusCodeResponse.toString());      
 
     } catch (e) {
       log(e.toString());

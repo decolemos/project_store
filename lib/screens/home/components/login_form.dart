@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_store/screens/home/components/input_form.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/provider_controller.dart';
 
 class LoginForm extends StatefulWidget {
 
@@ -31,7 +34,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-              
+    final provider = Provider.of<ProviderController>(context);
     return Container(
         margin: const EdgeInsets.only(top: 5, left: 15, right: 15),
         width: double.infinity,
@@ -154,7 +157,8 @@ class _LoginFormState extends State<LoginForm> {
                   widget.isLoginScreen == true
                     ? ElevatedButton(
                       onPressed: () {
-                        return _submit();
+                        _submit();
+                        provider.loginInWithUserCreated(formData["user"]!, formData["password"]!);
                       },
                       style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Color(0xff0097D7))
