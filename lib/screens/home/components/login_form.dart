@@ -89,9 +89,9 @@ class _LoginFormState extends State<LoginForm> {
                   InputForm(
                     labelText: "Nome:", 
                     validator: (value) {
-                      if(value == null || value.isEmpty) {
-                        return "Informe seu nome";
-                      }
+                      // if(value == null || value.isEmpty) {
+                      //   return "Informe seu nome";
+                      // }
                       return null;
                     }, 
                     onSaved: (newValue) {
@@ -136,11 +136,11 @@ class _LoginFormState extends State<LoginForm> {
                   InputForm(
                     labelText: "Confirmar senha:",
                     validator: (value) {
-                      if(value == null || value.isEmpty) {
-                        return "Confirme a senha que foi criada";
-                      } else if(value.length < 8) {
-                        return "Minimo de 8 caracteres";
-                      }
+                      // if(value == null || value.isEmpty) {
+                      //   return "Confirme a senha que foi criada";
+                      // } else if(value.length < 8) {
+                      //   return "Minimo de 8 caracteres";
+                      // }
                       return null;
                     },
                     onSaved: (newValue) {
@@ -179,7 +179,8 @@ class _LoginFormState extends State<LoginForm> {
                           height: 40,
                           child: ElevatedButton(
                             onPressed: () {
-                              return _submit();
+                              _submit();
+                              provider.createUserInFirebase(formData["user"]!, formData["password"]!);
                             },
                             style: const ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(Color(0xff0097D7)),

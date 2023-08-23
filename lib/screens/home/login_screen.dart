@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project_store/screens/home/components/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
-
-  
-
   const LoginScreen({super.key});
 
   @override
@@ -20,9 +17,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               SizedBox(
                 width: 200,
-                child: Image.network(
-                  "https://i.ibb.co/FD4DV6k/psn-logo.png"
-                ),
+                child: Image.network("https://www.pngmart.com/files/23/Psn-Logo-PNG-Image.png"),
               ),
               const SizedBox(
                 height: 40,
@@ -33,9 +28,9 @@ class LoginScreen extends StatelessWidget {
                 child: const Text(
                   "Login",
                   style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
                   ),
                 ),
               ),
@@ -56,14 +51,17 @@ class LoginScreen extends StatelessWidget {
                       },
                       child: const Row(
                         children: [
-                          Text("Ainda não tem conta?", 
-                            style: TextStyle(color: Colors.white,
-                             fontWeight: FontWeight.normal,
+                          Text(
+                            "Ainda não tem conta?",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
-                          Text(" CLIQUE AQUI!", 
-                            style: TextStyle(color: Color(0xff0097D7),
-              
+                          Text(
+                            " CLIQUE AQUI!",
+                            style: TextStyle(
+                              color: Color(0xff0097D7),
                             ),
                           ),
                         ],
@@ -74,11 +72,13 @@ class LoginScreen extends StatelessWidget {
                     width: 250,
                     height: 30,
                     child: TextButton(
-                      onPressed: () {
-                        
-                      },
-                      child: const Text("Esqueci minha senha!", 
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal)
+                      onPressed: () {},
+                      child: const Text(
+                        "Esqueci minha senha!",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal
+                        )
                       ),
                     ),
                   ),

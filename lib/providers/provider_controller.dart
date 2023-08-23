@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ProviderController extends ChangeNotifier {
-
   final String urlSingUp = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDiiMyJcvmJGynqJTsp201kZyfBgDd3YZE";
   final String urlSingIn = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDiiMyJcvmJGynqJTsp201kZyfBgDd3YZE";
 
@@ -15,11 +14,19 @@ class ProviderController extends ChangeNotifier {
         body: jsonEncode({
           "email": user,
           "password": password,
-          "returnSecureToken":true
+          "returnSecureToken": true
         })
       );
 
       final jsonResponse = jsonDecode(response.body);
+
+      final statusCodeResponse = jsonDecode(response.statusCode.toString());
+
+      if (jsonResponse == null || statusCodeResponse != 200) {
+        log("Usuário não foi criado!");
+      } else {
+        log("Usuário criado com sucesso!");
+      }
 
     } catch (e) {
       log(e.toString());
@@ -32,29 +39,26 @@ class ProviderController extends ChangeNotifier {
         body: jsonEncode({
           "email": user,
           "password": password,
-          "returnSecureToken":true
+          "returnSecureToken": true
         })
       );
 
-    log("chegou aqui");
+      final jsonResponse = jsonDecode(response.body);
 
-    final jsonResponse = jsonDecode(response.body);
-    final statusCodeResponse = jsonDecode(response.statusCode.toString());
+      final statusCodeResponse = jsonDecode(response.statusCode.toString());
 
-    if(jsonResponse == null || statusCodeResponse != 200) {
-      log("Usuário ou senha incorreto");
-    } else {
-      log("Logando");
-    }
+      if (jsonResponse == null || statusCodeResponse != 200) {
+        log("Usuário ou senha incorreto");
+      } else {
+        log("Logando");
+      }
 
-    final token = jsonResponse["idToken"];
+      final token = jsonResponse["idToken"];
 
-    log(token);      
-    log(statusCodeResponse.toString());      
-
+      log(token);
+      log(statusCodeResponse.toString());
     } catch (e) {
       log(e.toString());
     }
   }
-
 }
