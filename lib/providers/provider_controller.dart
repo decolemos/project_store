@@ -24,41 +24,43 @@ class ProviderController extends ChangeNotifier {
 
       if (jsonResponse == null || statusCodeResponse != 200) {
         log("Usuário não foi criado!");
+        throw Exception("Usuário não foi criado!");
       } else {
         log("Usuário criado com sucesso!");
       }
 
     } catch (e) {
       log(e.toString());
+      rethrow;
     }
   }
 
   Future<void> loginInWithUserCreated(String user, String password) async {
     try {
       final response = await http.post(Uri.parse(urlSingIn),
-        body: jsonEncode({
-          "email": user,
-          "password": password,
-          "returnSecureToken": true
-        })
+          body: jsonEncode({
+            "email": user,
+            "password": password,
+            "returnSecureToken": true,
+          }),
       );
 
       final jsonResponse = jsonDecode(response.body);
-
       final statusCodeResponse = jsonDecode(response.statusCode.toString());
 
       if (jsonResponse == null || statusCodeResponse != 200) {
         log("Usuário ou senha incorreto");
+        throw Exception("Usuário ou senha inválido");
       } else {
         log("Logando");
       }
 
       final token = jsonResponse["idToken"];
+      log(token ?? "Token inválido");
 
-      log(token);
-      log(statusCodeResponse.toString());
     } catch (e) {
       log(e.toString());
+      rethrow;
     }
   }
 }

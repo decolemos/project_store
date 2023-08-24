@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_store/screens/home/components/input_form.dart';
 import 'package:provider/provider.dart';
 
@@ -18,19 +21,60 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+
+  final storage = const FlutterSecureStorage();
   
   final _formKey = GlobalKey<FormState>();
 
   final Map<String, String> formData = {};
 
-  void _submit() {
-    _formKey.currentState!.validate();
+  void _login() async {
+    
+    if(_formKey.currentState!.validate() == false) return; 
+
     _formKey.currentState!.save();
+
+    try{
+      await Provider.of<ProviderController>(context, listen: false).loginInWithUserCreated(
+        formData["user"]!, formData["password"]!
+      );
+      await storage.write(key: "user", value: formData["user"]);
+      Navigator.pushNamed(context, "/store");
+    }catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString()
+          )
+        )
+      );
+    }
+
     print(formData["name"]);
     print(formData["user"]);
     print(formData["password"]);
     print(formData["checkPassword"]);
+
   }
+
+  void _createUser() async {
+
+    if(_formKey.currentState!.validate() == false) return; 
+
+    _formKey.currentState!.save();
+
+    try{
+      await Provider.of<ProviderController>(context, listen: false).createUserInFirebase(
+        formData["user"]!, formData["password"]!
+      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Usuário criado com sucesso!")));
+      Navigator.pop(context);
+    }catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString()
+          )
+        )
+      );
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -157,8 +201,7 @@ class _LoginFormState extends State<LoginForm> {
                   widget.isLoginScreen == true
                     ? ElevatedButton(
                       onPressed: () {
-                        _submit();
-                        provider.loginInWithUserCreated(formData["user"]!, formData["password"]!);
+                        _login();
                       },
                       style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Color(0xff0097D7))
@@ -179,8 +222,7 @@ class _LoginFormState extends State<LoginForm> {
                           height: 40,
                           child: ElevatedButton(
                             onPressed: () {
-                              _submit();
-                              provider.createUserInFirebase(formData["user"]!, formData["password"]!);
+                              _createUser();
                             },
                             style: const ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(Color(0xff0097D7)),

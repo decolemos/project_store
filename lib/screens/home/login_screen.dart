@@ -1,8 +1,34 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_store/screens/home/components/login_form.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
+  final storage = const FlutterSecureStorage();
+
+
+  @override
+  void initState() {
+    super.initState();
+    storageRead();
+  }
+
+  void storageRead() async {
+    String? loginUser = await storage.read(key: "user");
+
+    if(loginUser == null) return;
+
+    Navigator.pushNamed(context, "/store");
+  }
 
   @override
   Widget build(BuildContext context) {
